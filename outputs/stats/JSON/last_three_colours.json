@@ -1,0 +1,12 @@
+[
+    {
+        "colour": "Red",
+        "count": 2,
+        "percentage": 50.0
+    },
+    {
+        "colour": "Blue",
+        "count": 2,
+        "percentage": 50.0
+    }
+]
