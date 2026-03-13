@@ -7,6 +7,14 @@ app = FastAPI(
     version="1.0.0"
                 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = ["http://localhost:5173"],
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+    )
+
 app.include_router(colours.router)
 app.include_router(fabrics.router)
 app.include_router(insights.router)
