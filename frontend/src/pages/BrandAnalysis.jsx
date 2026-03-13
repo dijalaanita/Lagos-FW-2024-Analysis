@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import {getBrandColours} from "../services/api"
 import ColourCharts from "../components/colourcharts"
 import BrandSelector from "../components/BrandSelector"
+import Insights from "../components/Insights"
 
 export default function BrandAnalysis() {
 
@@ -50,8 +51,8 @@ const brands = [
   "the_or_foundation",
   "wote",
   "y'wande"]
-    const [data, setData] = useState([])
-    const [brand, setBrand] = useState([0])
+    const [data, setData] = useState({ brand_colours: []});
+    const [brand, setBrand] = useState(brands[0])
     const [loading, setloading] = useState(true)
 
     useEffect(() => {
@@ -84,6 +85,8 @@ const brands = [
             ) : (
             <p>Loading chart data...</p>
             )}
+
+            <Insights data={data} />
         </div>
     )
 };
