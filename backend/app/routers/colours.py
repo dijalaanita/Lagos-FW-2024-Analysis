@@ -13,7 +13,7 @@ def overall_colours():
 def get_brand_colours(brand_name: str):
     filename = f"runway_colours.json"
     data = load_data(filename)
-    new_data = [item for item in data if item.get('brand') == brand_name]
+    new_data = [item for item in data if item.get('brand').lower() == brand_name.lower()]
     return {"brand_colours": new_data}
 
 @router.get("/brand/{brand_name}/top5")
