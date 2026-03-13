@@ -1,61 +1,32 @@
 import { useEffect, useState } from "react"
-import {getBrandColours} from "../services/api"
+import {getBrandColours, getBrands} from "../services/api"
 import ColourCharts from "../components/colourcharts"
 import BrandSelector from "../components/BrandSelector"
 import Insights from "../components/Insights"
 
 export default function BrandAnalysis() {
 
-const brands = [
-  "adage_studio_project_x_unrefyned",
-  "adama_paris",
-  "ajabeng",
-  "ajanee",
-  "babayo",
-  "boyedoe",
-  "cynthia_abila",
-  "desiree_iyama",
-  "dimeji_ilori",
-  "eki_silk",
-  "elexiay",
-  "emmy_kasbit",
-  "eso_by_liman",
-  "for_style_sake",
-  "fruche",
-  "hawa_paris",
-  "hertunba",
-  "ibilola_ogundipe",
-  "imad_eduso",
-  "jzo",
-  "last_three",
-  "lb_lumina",
-  "left_of_yaba_x_jilk",
-  "lfj",
-  "lila_bare",
-  "maison_alulla",
-  "maxjenny",
-  "mot_the_label",
-  "ndiiche_x_sinae",
-  "nkwo",
-  "nya",
-  "olooh",
-  "oshobor",
-  "pepperrow",
-  "pettre_taylor",
-  "rendoll",
-  "revival_london",
-  "sahrazad",
-  "sevon_dejana",
-  "street_souk",
-  "studio_imo",
-  "the_or_foundation",
-  "wote",
-  "y'wande"]
-    const [data, setData] = useState({ brand_colours: []});
-    const [brand, setBrand] = useState(brands[0])
+    const [data, setData] = useState({ brand_colours: [] });
+    const [brand, setBrand] = useState("")
+    const [brands, setBrands] = useState([])
     const [loading, setloading] = useState(true)
 
     useEffect(() => {
+
+        getBrands().then(response => {
+            console.log("Fetched Brands:", response); // log the fetched brands for debugging
+            if (response && response.length > 0){
+            setBrands(response)
+            setBrand(response[0]) // set the first brand as default
+            }
+        })
+        .catch(error => console.error("Error fetching brands:", error))
+    }, [])
+
+    useEffect(() => {
+        if (!brand) return; // ensure brand is selected before fetching
+        setloading(true); // set loading state before fetching data
+
         getBrandColours(brand)
         .then(response => {
             console.log("Fetched Brand Colours:", response); // log the fetched data for debugging
