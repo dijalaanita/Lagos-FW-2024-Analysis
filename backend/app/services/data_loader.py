@@ -1,8 +1,13 @@
 import json
 from pathlib import Path
-
-DATA_DIR = Path(r"C:\Users\User\OneDrive\Desktop\Lagos-FW-2024-Analysis\Lagos-FW-2024-Analysis-1\outputs\stats\JSON")
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+DATA_DIR = BASE_DIR / "outputs" / "stats" / "JSON"
 
 def load_data(file):
-    with open(DATA_DIR / file, 'r') as f:
-        return json.load(f)
+    file_path = DATA_DIR / file
+    try:
+        with open(file_path, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"🔥 Unexpected error loading JSON: {e}")
+        return None
