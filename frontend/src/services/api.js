@@ -13,3 +13,8 @@ export const getBrands = async () => {
   const response = await API_BASE.get("/brands");
   return response.data;
 }
+
+export const getOverviewColours = async () => {
+  const response = await API_BASE.get("/analysis/overview/colours")
+  return response.data;
+}

@@ -1,5 +1,6 @@
 import BrandAnalysis from "./pages/BrandAnalysis"
 import NavBar from "./components/NavBar"
+import Overview from "./pages/Overview"
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
   // backgroundColor: "#f9f9f9",
   // minHeight: "100vh"
 }}>
+  <Overview />
   <BrandAnalysis />
 </div>
 </div>

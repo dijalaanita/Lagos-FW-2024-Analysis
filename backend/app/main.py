@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import colours, insights, fabrics
 import os
+import json
 from pathlib import Path
 
 app = FastAPI(
@@ -30,6 +31,58 @@ def get_brands():
         if os.path.isdir(path):
             brands.append(file)
     return brands
+
+
+BASE_STATS = Path(__file__).resolve().parent.parent.parent
+STATS = BASE_STATS / "outputs" / "stats"/ "JSON"
+
+@app.get("/analysis/overview/colours")
+def colour_overall():
+    counts = {}
+
+    for file in os.listdir(STATS):
+        if not file.endswith("_colours.json"):
+            continue
+
+        path = os.path.join(STATS, file)
+        try:
+            with open(path) as f:
+                data = json.load(f)
+            if not isinstance(data, list):
+                continue
+
+            for item in data:
+                if "colours" in item and isinstance(item["colours"], str):
+                    split_colours = [c.strip() for c in item["colours"].split(",")]
+                    for colour in split_colours:
+                        if colour:
+                            counts[colour] = counts.get(colour, 0) + 1
+                
+                elif "colours" in item and "count" in item:
+                    colour = item["colours"]
+                    counts[colour] = counts.get(colour, 0) + item["count"]
+                else:
+                    print(f"⚠️ Skipping invalid item in {file}: {item}")
+        except Exception as e:
+            print(f"cant process file {file}: {e}")
+            continue
+    
+    if not counts:
+        return []
+
+    total = sum(counts.values())
+    results = []
+
+    for colour, count in counts.items():
+        results.append({
+            "colour": colour,
+            "count": count,
+            "percentage": f"{round((count/total) * 100, 0)}%"
+        })
+    
+    results.sort(key=lambda x:x["count"], reverse=True)
+    return results
+
 
 app.include_router(colours.router)
 app.include_router(fabrics.router)

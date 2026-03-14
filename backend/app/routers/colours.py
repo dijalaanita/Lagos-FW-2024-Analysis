@@ -11,14 +11,15 @@ def overall_colours():
 
 @router.get("/brand/{brand_name}")
 def get_brand_colours(brand_name: str):
-    filename = f"runway_colours.json"
+    filename = f"{brand_name.lower()}_colours.json"
     data = load_data(filename)
-    new_data = [item for item in data if item.get('brand').lower() == brand_name.lower()]
-    return {"brand_colours": new_data}
+    if not data:
+        print(f"Warning: No data found for {filename}")
+    return {"brand_colours": data}
 
-@router.get("/brand/{brand_name}/top5")
-def get_brand_top5_colours(brand_name: str):
-    filename = f"{brand_name}_colours.json"
+@router.get("/brand/{brand}/top5")
+def get_brand_top5_colours(brand: str):
+    filename = f"{brand}_colours.json"
     data = load_data(filename)
     sorted_colours = sorted(
         data,
@@ -33,9 +34,9 @@ def get_brand_top5_colours(brand_name: str):
     return {"brand_top5_colours": names,
             "percentages": percentages_sentence}
 
-@router.get("/brand/{brand_name}/dominant")
-def dominant_colour(brand_name: str):
-    filename = f"{brand_name}_colours.json"
+@router.get("/brand/{brand}/dominant")
+def dominant_colour(brand: str):
+    filename = f"{brand}_colours.json"
     data = load_data(filename)
     dominant = max(data, key=lambda x: x["count"])
 
