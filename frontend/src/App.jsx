@@ -15,8 +15,13 @@ export default function App() {
   // backgroundColor: "#f9f9f9",
   // minHeight: "100vh"
 }}>
-  <Overview />
-  <BrandAnalysis />
+  <Routes>
+    <Routes path="/" element={<Overview />} />
+
+    <Routes path="/brand-analysis" element={<BrandAnalysis />} />
+  </Routes>
+  {/* <Overview />
+  <BrandAnalysis /> */}
 </div>
 </div>
   )
