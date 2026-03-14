@@ -1,6 +1,4 @@
-import { data } from "react-router-dom";
-
-export default function ColourPalette() {
+export default function ColourPalette({data}) {
 
     if (!data || data.length === 0) return null
 
@@ -8,7 +6,9 @@ export default function ColourPalette() {
         <div style={{ marginTop: "20px" }}>
             <h3>Colour Palette</h3>
             <div style={{ display: "flex", gap: "10px"}}>
-                {data.map((item) => (
+                {data.map((item) => {
+                    const displayColour = item.colour.split('/')[0].trim().toLowerCase(); // Extract the main colour name and convert to lowercase
+    
                     <div key={item.colour} style={{ textAlign: "center" }}>
 
                         <div style={{
@@ -17,10 +17,11 @@ export default function ColourPalette() {
                             background: item.colour.toLowerCase(),
                             border: "1px solid #ccc"}}/>
                         
-                        <small>{item.colour}</small>
+                        <small style={{ display: "block", marginTop: "5px" }}>
+                            {item.colour}</small>
                     </div>
-                ))}
+})}
             </div>
         </div>
-    )
+    );
 }

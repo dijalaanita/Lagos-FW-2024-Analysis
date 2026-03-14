@@ -58,7 +58,7 @@ export default function BrandAnalysis() {
             <p>Loading chart data...</p>
             )}
 
-            <ColourPalette data={data}/>
+            <ColourPalette data={data.brand_colours}/>
             <Insights data={data} />
         </div>
     )
