@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export default function NavBar(){
 
     return(
@@ -5,9 +7,17 @@ export default function NavBar(){
             padding: "15px",
             background: "#111",
             color: "white",
-            marginBottom: "30px"
+            marginBottom: "30px",
+            display: "flex",
+            gap: "20px"
         }}>
-            <h2>LAGOS FASHION WEEK F/W 2025 ANALYSIS</h2>
+            <Link to="/" style={{color: "white", textDecoration: "none"}}>
+            Overview
+            </Link>
+
+            <Link to="/brand-analysis" style={{color: "white", textDecoration: "none"}}>
+            Brand Analysis
+            </Link>
 
 
 
