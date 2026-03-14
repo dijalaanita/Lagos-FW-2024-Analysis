@@ -1,6 +1,7 @@
 import BrandAnalysis from "./pages/BrandAnalysis"
 import NavBar from "./components/NavBar"
 import Overview from "./pages/Overview"
+import { Routes, Route } from "react-router-dom"
 
 export default function App() {
   return (
@@ -16,9 +17,9 @@ export default function App() {
   // minHeight: "100vh"
 }}>
   <Routes>
-    <Routes path="/" element={<Overview />} />
+    <Route path="/" element={<Overview />} />
 
-    <Routes path="/brand-analysis" element={<BrandAnalysis />} />
+    <Route path="/brand-analysis" element={<BrandAnalysis />} />
   </Routes>
   {/* <Overview />
   <BrandAnalysis /> */}
