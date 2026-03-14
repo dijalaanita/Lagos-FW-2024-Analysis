@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getOverviewColours } from "../services/api"
 import ColourCharts from "../components/colourcharts"
 import Insights from "../components/Insights"
+import ColourPalette from "../components/ColourPalette";
 
 export default function Overview(){
     const [data, setData] = useState([]);
@@ -25,7 +26,12 @@ export default function Overview(){
     return (
         <div>
             <h1>LAGOS FASHION WEEK COLOUR TRENDS</h1>
-            <ColourCharts data={data}/>
+             {!loading && data?.length > 0 ? (
+            <ColourCharts data={data} />
+            ) : (
+            <p>Loading chart data...</p>
+            )}
+            <ColourPalette data={data}/>
             <Insights data={data}/>
             </div>
     )
