@@ -3,6 +3,7 @@ import {getBrandColours, getBrands} from "../services/api"
 import ColourCharts from "../components/colourcharts"
 import BrandSelector from "../components/BrandSelector"
 import Insights from "../components/Insights"
+import ColourPalette from "../components/ColourPalette"
 
 export default function BrandAnalysis() {
 
@@ -57,6 +58,7 @@ export default function BrandAnalysis() {
             <p>Loading chart data...</p>
             )}
 
+            <ColourPalette data={data}/>
             <Insights data={data} />
         </div>
     )
